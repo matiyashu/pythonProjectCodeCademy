@@ -135,19 +135,19 @@ print(f"\n{affected_area_hur}")
 # write your greatest number of deaths function here:
 
 
-def greatest_mortality (h_dictionary):
-  hurricane_name = ''
-  mortality = 0
-  for cane in h_dictionary.values():
-    if cane.get("Deaths") > mortality:
-      hurricane_name = cane.get("Name")
-      mortality = cane.get("Deaths")
-  return hurricane_name, mortality
+def greatest_mortality(h_dictionary):
 
+    deadliest_hurricane = ''
+    deaths = 0
 
-greatest_deaths_number = greatest_mortality(h_dictionary)
+    for cane in h_dictionary:
+        if h_dictionary[cane]["Deaths"] > deaths:
+            deadliest_hurricane = cane
+            deaths = h_dictionary[cane]["Deaths"]
+    return deadliest_hurricane, deaths
 
-print(f"\n{greatest_deaths_number}")
+deadliest_hurricane, deaths = greatest_mortality(h_dictionary)
+print(f"\nmax_mortality_cane = {deadliest_hurricane}\nmax_mortality = {deaths}")
 
 
 # write your catgeorize by mortality function here:
