@@ -99,26 +99,55 @@ year_of_h = hurricane_by_year(h_dictionary)
 print(f"\n{year_of_h}")
 # write your count affected areas function here:
 
+def area_affected(areas):
+	affected_area_count = {}
+	for area in areas:
+		for location in area:
+			if affected_area_count.get(location) is None:
+				affected_area_count[location] = 1
+			else:
+				affected_area_count[location] += 1
+	return affected_area_count
 
+hurricane_affected_area = area_affected(areas_affected)
 
+print(f"\n{hurricane_affected_area}")
 
 
 
 
 # write your find most affected area function here:
+def most_affected_area (areas):
+  place = ""
+  max_hits = 0
+  for area,hits in areas.items():
+    if hits > max_hits:
+      place = area
+      max_hits = hits
+  return place, max_hits
+
+affected_area_hur = most_affected_area(hurricane_affected_area)
 
 
-
-
-
+print(f"\n{affected_area_hur}")
 
 
 # write your greatest number of deaths function here:
 
 
+def greatest_mortality (h_dictionary):
+  hurricane_name = ''
+  mortality = 0
+  for cane in h_dictionary.values():
+    if cane.get("Deaths") > mortality:
+      hurricane_name = cane.get("Name")
+      mortality = cane.get("Deaths")
+  return hurricane_name, mortality
 
 
+greatest_deaths_number = greatest_mortality(h_dictionary)
 
+print(f"\n{greatest_deaths_number}")
 
 
 # write your catgeorize by mortality function here:
