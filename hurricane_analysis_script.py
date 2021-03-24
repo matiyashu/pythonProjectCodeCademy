@@ -101,8 +101,8 @@ print(f"\n{year_of_h}")
 
 def area_affected(areas):
 	affected_area_count = {}
-	for area in areas:
-		for location in area:
+	for element in areas:
+		for location in element:
 			if affected_area_count.get(location) is None:
 				affected_area_count[location] = 1
 			else:
@@ -134,25 +134,53 @@ print(f"\n{affected_area_hur}")
 
 # write your greatest number of deaths function here:
 
-
 def greatest_mortality(h_dictionary):
 
     deadliest_hurricane = ''
     deaths = 0
 
-    for cane in h_dictionary:
-        if h_dictionary[cane]["Deaths"] > deaths:
-            deadliest_hurricane = cane
-            deaths = h_dictionary[cane]["Deaths"]
+    for element in h_dictionary:
+        if h_dictionary[element]["Deaths"] > deaths:
+            deadliest_hurricane = element
+            deaths = h_dictionary[element]["Deaths"]
     return deadliest_hurricane, deaths
 
 deadliest_hurricane, deaths = greatest_mortality(h_dictionary)
 print(f"\nmax_mortality_cane = {deadliest_hurricane}\nmax_mortality = {deaths}")
-
-
 # write your catgeorize by mortality function here:
 
+def hurricane_mortality_category (h_dictionary):
+	mortality_category = {	0 : [], 
+							1 : [], 
+							2 : [], 
+							3 : [], 
+							4 : [] }
+							
+	for  element in h_dictionary:
+		category = 0
+		deceased_victim = h_dictionary[element]["Deaths"]
 
+		if deceased_victim < 100:
+			category = 0
+		elif deceased_victim >= 100 and deceased_victim < 500:
+			category = 1
+		elif deceased_victim >= 500 and deceased_victim < 1000:
+			category = 2
+		elif deceased_victim >= 1000 and deceased_victim < 10000:
+			category = 3
+		else:
+			category = 4
+
+		if category not in mortality_category:
+			mortality_category[category] = h_dictionary[element]
+		else:
+			mortality_category[category].append(h_dictionary[element])
+	return mortality_category
+
+
+cane_mortality_category = hurricane_mortality_category(h_dictionary)
+
+print(f"\n{cane_mortality_category}")
 
 
 
@@ -160,10 +188,57 @@ print(f"\nmax_mortality_cane = {deadliest_hurricane}\nmax_mortality = {deaths}")
 
 # write your greatest damage function here:
 
+def greatest_damage_func(h_dictionary):
+    dmg_list = []
+    for name in h_dictionary:
+        if h_dictionary[name]['Damage'] != 'Damages not recorded':
+            dmg_list.append(h_dictionary[name]['Damage'])
+
+    greatest_damage = max(dmg_list)
+
+    for name in h_dictionary:
+        if h_dictionary[name]['Damage'] == greatest_damage:
+            return name, greatest_damage
 
 
+print(f"\nThis is the most destructive hurricane_mortality_category : {greatest_damage_func(h_dictionary)}")
 
 
 
 
 # write your catgeorize by damage function here:
+
+def damage_scaled(hurricanes):
+
+    scale_dict = {0: [], 1: [], 2: [], 3: [], 4: []}
+
+    for element in hurricanes:
+
+        power_rate = 0
+        damage = hurricanes[element]["Damage"]
+
+        if damage == "Damages not recorded":
+            continue
+        elif damage < 100000000:
+            power_rate = 0
+        elif damage >= 100000000 and damage < 1000000000:
+            power_rate = 1
+        elif damage >= 1000000000 and damage < 10000000000:
+            power_rate = 2
+        elif damage >= 10000000000 and damage < 50000000000:
+            power_rate = 3
+        else:
+            power_rate = 4
+
+        if power_rate not in scale_dict:
+            scale_dict[power_rate] = hurricanes[element]
+        else:
+            scale_dict[power_rate].append(hurricanes[element])
+
+    return scale_dict
+
+damage_scale = damage_scaled(h_dictionary)
+
+print(f"\nThis is the damage scale: \n{damage_scale}")
+
+
